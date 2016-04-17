@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="StockMarket.Watch.Views.RibbonBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:igdp="http://infragistics.com/DataPresenter"
+             xmlns:igED="http://infragistics.com/Editors"
+             xmlns:ig="http://schemas.infragistics.com/xaml"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <UserControl.Resources>
+
+
+        <!--<igdp:XamDataGrid.Resources>-->
+        <!-- hyperlink cell -->
+        <!-- Note - you'll need to handle the routed Hyperlink.RequestNavigate to process the clicking on a link -->
+            <Style TargetType="{x:Type igdp:CellValuePresenter}" x:Key="hyperlinkCell">
+            <Setter Property="Template">
+                <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type igdp:CellValuePresenter}">
+                        <TextBlock Margin="{TemplateBinding Padding}">
+                            <Hyperlink NavigateUri="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value}">
+                                <TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value}"/>
+                            </Hyperlink>
+                        </TextBlock>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- button cell -->
+        <!-- Note - you will need to handle the routed Button.Click event  -->
+            <Style TargetType="{x:Type igdp:CellValuePresenter}" x:Key="buttonCell">
+            <Setter Property="Template">
+                <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type igdp:CellValuePresenter}">
+                        <Button Content="{TemplateBinding Content}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    <!--</igdp:XamDataGrid.Resources>-->
+
+    </UserControl.Resources>
+
+    <Grid>
+
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding Back}" Content="Back"></Button>
+                <Button Command="{Binding Forward}" Content="Forward"></Button>
+                <TextBlock Text="{Binding Location,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+            </StackPanel>
+            
+            <ListBox Height="50" ToolTip="Drop file and folder hear" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  ItemsSource="{Binding Path=Files}"  Name="DropBox"   Margin="10,0,0,0"  AllowDrop="True" Drop="DropBox_Drop" DragOver="DropBox_DragOver" DragLeave="DropBox_DragLeave" Background="#FFE2E2E2" FontSize="10">
+        </ListBox>
+
+            <igdp:XamDataGrid DataSource="{Binding FileExplorerData}" AllowDrop="True" AutoFit="True" SelectedDataItem="{Binding ActiveRecord}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            
+            <igdp:XamDataGrid.FieldLayoutSettings>
+                <igdp:FieldLayoutSettings AutoGenerateFields="False"/>
+            </igdp:XamDataGrid.FieldLayoutSettings>
+            <igdp:XamDataGrid.FieldLayouts>
+                <igdp:FieldLayout>
+                        <igdp:FieldLayout.Fields >
+                            <igdp:Field    Name="Name" Label="{Binding Path=Name}" AllowEdit="False"></igdp:Field>
+                            <igdp:Field  Name="FileModifiedDateTime" Label="{Binding Path=FileModifiedDateTime}" AllowEdit="False" ></igdp:Field>
+                            <igdp:Field  Name="FileCreatedDateTime" Label="{Binding Path=FileCreatedDateTime}" AllowEdit="False"></igdp:Field>
+                            <igdp:Field  Name="CreatedBy" Label="{Binding Path=CreatedBy}" AllowEdit="False"></igdp:Field>
+                            <igdp:Field  Name="FileType" Label="{Binding Path=FileType}" AllowEdit="False"></igdp:Field>                        
+                        </igdp:FieldLayout.Fields>
+                    </igdp:FieldLayout>
+            </igdp:XamDataGrid.FieldLayouts>
+        </igdp:XamDataGrid>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

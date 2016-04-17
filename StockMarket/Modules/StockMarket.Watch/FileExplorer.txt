@@ -1,0 +1,9 @@
+﻿1) Show All Directory
+2) Show All files
+3) Navigate Directory
+4) Add new files
+5) Add new directory
+6) Delete File 
+7) Delete Directory
+8) Back Forward
+9) Bread crumbs

@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using StockMarket.Watch.ViewModels;
+using System.Windows.Controls;
 
 namespace StockMarket.Watch.Views
 {
@@ -7,9 +8,10 @@ namespace StockMarket.Watch.Views
     /// </summary>
     public partial class StockWatchView : UserControl
     {
-        public StockWatchView()
+        public StockWatchView(FileExplorerViewModel vm)
         {
             InitializeComponent();
+            this.DataContext = vm;
         }
     }
 }
