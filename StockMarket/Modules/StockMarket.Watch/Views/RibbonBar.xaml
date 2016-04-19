@@ -51,7 +51,7 @@
             <StackPanel Orientation="Horizontal">
                 <Button Command="{Binding Back}" Content="Back"></Button>
                 <Button Command="{Binding Forward}" Content="Forward"></Button>
-                <TextBlock Text="{Binding Location,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                <TextBlock Name="txtlocation" Text="{Binding Location,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
             </StackPanel>
             
             <ListBox Height="50" ToolTip="Drop file and folder hear" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  ItemsSource="{Binding Path=Files}"  Name="DropBox"   Margin="10,0,0,0"  AllowDrop="True" Drop="DropBox_Drop" DragOver="DropBox_DragOver" DragLeave="DropBox_DragLeave" Background="#FFE2E2E2" FontSize="10">

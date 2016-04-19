@@ -22,7 +22,28 @@ namespace StockMarket.Watch.ViewModels
             FileExplorerData = new ObservableCollection<FileExplorer>();
             NavigateFolder = new DelegateCommand(OnNavigate,canNavigate);
             FillDirectory("Z://");
+            FileSystemWatcher m_Watcher = new FileSystemWatcher();
+            m_Watcher.NotifyFilter = NotifyFilters.LastAccess | 
+                         NotifyFilters.LastWrite | 
+                         NotifyFilters.FileName | 
+                         NotifyFilters.DirectoryName;
+            m_Watcher.Changed += new FileSystemEventHandler(OnChanged);
+            m_Watcher.Created += new FileSystemEventHandler(OnChanged);
+            m_Watcher.Deleted += new FileSystemEventHandler(OnChanged);
+            m_Watcher.Renamed += new RenamedEventHandler(OnRenamed);
             
+        }
+
+        private void OnRenamed(object sender, RenamedEventArgs e)
+        {
+              FileExplorerData.Clear();
+            FillDirectory("Z://");
+        }
+
+        private void OnChanged(object sender, FileSystemEventArgs e)
+        {
+            FileExplorerData.Clear();
+            FillDirectory("Z://");
         }
 
         private void OnNavigate()
